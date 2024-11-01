@@ -54,4 +54,43 @@ public interface TodoMapper {
 	 */
 	int addTodo(Todo todo);
 
+	/** 할 일 상세조회
+	 * @param todoNo
+	 * @return
+	 */
+	Todo todoDetail(int todoNo);
+
+	/** 완료 여부 변경
+	 * @param todo
+	 * @return
+	 */
+	int changeComplete(Todo todo);
+
+
+	/** 수정 페이지 조회
+	 * @param todoNo
+	 * @return
+	 */
+	Todo update(int todoNo);
+
+	/** 수정하기
+	 * @param todo
+	 * @return
+	 */
+	int todoUpdate(Todo todo);
+
+	/** 삭제하기
+	 * @param todoNo
+	 * @return
+	 */
+	int todoDelete(int todoNo);
+
+	
+
+	
+	
+	
+	
 }
+
+
