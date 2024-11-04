@@ -136,7 +136,7 @@ public class DBConfig {
 		// 세팅 3. 마이바티스 설정 파일 경로 지정
 		sessionFactoryBean.setConfigLocation(
 				applicationContext.getResource("classpath:/mybatis-config.xml"));
-		//		현재프로젝트.작원을얻어옴.경로(src/main/resources/mybatis-config.xml)
+		//		현재프로젝트.자원을얻어옴.경로(src/main/resources/mybatis-config.xml)
 		
 		// SqlSession 객체 반환
 		return sessionFactoryBean.getObject();
