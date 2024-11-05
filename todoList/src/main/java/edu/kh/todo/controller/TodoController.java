@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -152,21 +153,30 @@ public class TodoController {
 	}
 	
 	@PostMapping("update")
-	public String todoUpdate(@RequestParam("todoNo") int todoNo,
-							@RequestParam("todoTitle") String todoTitle,
-							@RequestParam("todoContent") String todoContent,
-							RedirectAttributes ra) {
+	public String todoUpdate(
+		@ModelAttribute Todo todo,
+		RedirectAttributes ra) {
 		
-		int result = service.todoUpdate(todoNo,todoTitle,todoContent);
+		// 수정 서비스 호출
+		int result = service.todoUpdate(todo);
 		
+		String path = "redirect:";
 		String message = null;
 		
-		if(result > 0) message = "변경 성공!!";
-		else 		   message = "변경 실패..";
+		if(result > 0) {
+			// 상세 조회로 리다이렉트
+			path += "/todo/detail?todoNo=" + todo.getTodoNo();
+			message = "수정 성공!!!";
+			
+		} else {
+			// 다시 수정 화면으로 리다이렉트
+			path += "/todo/update?todoNo=" + todo.getTodoNo();
+			message = "수정 실패...";
+		}
 		
-		ra.addFlashAttribute("message",message);
+		ra.addFlashAttribute("message", message);
 		
-		return "redirect:detail?todoNo=" + todoNo ;
+		return path;
 	}
 	
 	@GetMapping("delete")

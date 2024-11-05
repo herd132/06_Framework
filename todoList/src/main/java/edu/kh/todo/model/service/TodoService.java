@@ -42,13 +42,11 @@ public interface TodoService {
 	 */
 	Todo update(int todoNo);
 
-	/** 수정 하기
-	 * @param todoNo
-	 * @param todoTitle
-	 * @param todoContent
-	 * @return
+	/** 할 일 수정
+	 * @param todo
+	 * @return result
 	 */
-	int todoUpdate(int todoNo, String todoTitle, String todoContent);
+	int todoUpdate(Todo todo);
 
 	/** 삭제 하기
 	 * @param todoNo

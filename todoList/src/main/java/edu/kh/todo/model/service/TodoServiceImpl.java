@@ -94,12 +94,7 @@ public class TodoServiceImpl implements TodoService {
 
 	// 수정하기
 	@Override
-	public int todoUpdate(int todoNo, String todoTitle, String todoContent) {
-		Todo todo = new Todo();
-		todo.setTodoNo(todoNo);
-		todo.setTodoTitle(todoTitle);
-		todo.setTodoContent(todoContent);
-		
+	public int todoUpdate(Todo todo) {
 		return mapper.todoUpdate(todo);
 	}
 

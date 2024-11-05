@@ -89,14 +89,7 @@ public interface TodoMapper {
 	 * @return totalCount
 	 */
 	int getTotalCount();
-	
-
-	
-
-	
-	
-	
-	
+		
 }
 
 
