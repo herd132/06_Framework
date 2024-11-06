@@ -24,7 +24,7 @@ public class TodoController {
 	@PostMapping("add")   // 	"/todo/add" POST 방식 요청 매핑
 	public String addTodo(
 			@RequestParam("todoTitle") String todoTitle,
-			@RequestParam("todoContent") String todoContent,				
+			@RequestParam("todoContent") String todoContent,
 			RedirectAttributes ra
 			) {
 			

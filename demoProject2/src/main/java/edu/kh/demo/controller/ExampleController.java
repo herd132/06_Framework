@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +64,6 @@ public class ExampleController {
 		std.setStudentNo("12345");
 		std.setName("홍길동");
 		std.setAge(22);
-		
 		model.addAttribute("std",std);
 		
 		// List<Student> 객체 Model을 이용해서 html로 전달
@@ -80,13 +80,13 @@ public class ExampleController {
 	}
 	
 	@PostMapping("ex2") 	//	/example/ex2 POST 방식 요청 매핑
-	public String ex2(Model model) {
+	public String ex2(Model model,
+			@ModelAttribute Student student) {
 		
 		// Model : Spring에서 데이터 전달 역할을 하는 객체
 		//		기본적으로 request scope + session 으로 확장 가능
 		
 		model.addAttribute("str", "<h1>테스트 중 &times;</h1>");
-		
 		// forward
 		// 접두사 : classpath:/templates/
 		// 접미사 : .html

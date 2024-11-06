@@ -55,6 +55,21 @@ COMMIT;
 
 SELECT * FROM "MEMBER";
 
+
+-- 회원 1번 유저일 암호화된 번호로 세
+UPDATE "MEMBER"
+SET MEMBER_PW = '$2a$10$nT.JudIt5DcX3j.jMhYG4uNL.2cUt5.34gTIDfz8sqBmE7fJ5qN92'
+WHERE MEMBER_NO = 1;
+
+COMMIT;
+
+
+SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_PW,
+MEMBER_TEL, MEMBER_ADDRESS, PROFILE_IMG, AUTHORITY,
+TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') ENROLL_DATE
+FROM "MEMBER"
+WHERE MEMBER_EMAIL = 'user01@kh.or.kr'
+AND MEMBER_DEL_FL = 'N';
 -----------------------------------------
 
 /* 이메일, 인증키 저장 테이블 생성 */

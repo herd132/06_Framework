@@ -20,7 +20,7 @@ import edu.kh.todo.model.mapper.TodoMapper;
 // rollbackFor 속성 : 어떤 예외가 발생했을 때 rollback 할지 지정
 
 
-@Transactional(rollbackFor=Exception.class)
+@Transactional
 @Service // 비즈니스 로직 (데이터 가공, 트랜잭션 처리) 역할 명시 + Bean 등록
 public class TodoServiceImpl implements TodoService {
 
