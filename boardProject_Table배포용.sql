@@ -55,7 +55,6 @@ COMMIT;
 
 SELECT * FROM "MEMBER";
 
-
 -- 회원 1번 유저일 암호화된 번호로 세
 UPDATE "MEMBER"
 SET MEMBER_PW = '$2a$10$nT.JudIt5DcX3j.jMhYG4uNL.2cUt5.34gTIDfz8sqBmE7fJ5qN92'
@@ -80,7 +79,11 @@ AND MEMBER_EMAIL = 'user02@kh.or.kr';
 -- 0이 조회 : 중복 X (해당 이메일 사용중인 회원 없음) -> 이용 가능
 -- 1이 조회 : 중복 O (해당 이메일 사용중인 회원 있다) -> 이용 불가
 
-
+-- 닉네임 중복 검사
+SELECT COUNT(*)
+		FROM "MEMBER"
+		WHERE MEMBER_DEL_FL = 'N'
+		AND MEMBER_NICKNAME = '유저일';
 
 -----------------------------------------
 
