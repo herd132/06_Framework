@@ -1,8 +1,10 @@
 package edu.kh.project.myPage.model.service;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,11 @@ public class MyPageServiceImpl implements MyPageService{
 	// BCrypt 암호화 객체 의존성 주입(SecurityConfig 참고)
 	private final BCryptPasswordEncoder bcrypt;
 	
+	@Value("${my.profile.web-path}")
+	private String profileWebPath; // /myPage/profile/
+	
+	@Value("${my.profile.folder-path}")
+	private String profileFolderPath; // C:/uploadFiles/profile/
 	
 	
 	// 회원 정보 수정
@@ -205,6 +212,107 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		
 		return result; // 1
+	}
+
+	// 파일 목록 조회 서비스
+	@Override
+	public List<UploadFile> fileList(int memberNo) {
+		return mapper.fileList(memberNo);
+	}
+
+	
+	// 여러 파일 업로드 서비스
+	@Override
+	public int fileUpload3(List<MultipartFile> aaaList, 
+							List<MultipartFile> bbbList, 
+							int memberNo) throws Exception {
+		
+		// 1. aaaList 처리
+		int result1 = 0;
+		
+		// 업로드된 파일이 없을 경우를 제외하고 업로드
+		for(MultipartFile file : aaaList) {
+			
+			if(file.isEmpty()) { // 파일이 없으면 다음 파일
+				continue;
+			}
+			
+			// fileUpload2() 메서드 호출(재활용)
+			// -> 파일 하나 업로드 + DB INSERT
+			result1 += fileUpload2(file,memberNo);
+			
+			
+		}
+		
+		// 2. bbbList 처리
+		int result2 = 0;
+		
+		// 업로드된 파일이 없을 경우를 제외하고 업로드
+		for(MultipartFile file : bbbList) {
+			
+			if(file.isEmpty()) {
+				continue;
+			}
+			
+			result2 += fileUpload2(file,memberNo);
+			
+		}
+		
+		
+		return result1 + result2;
+	}
+
+	
+	
+	// 프로필 이미지 변경 서비스
+	@Override
+	public int profile(MultipartFile profileImg, Member loginMember) throws Exception {
+		
+		// 프로필 이미지 경로 (수정할 경로)
+		String updatePath = null;
+		
+		// 변경명 저장
+		String rename = null;
+		
+		// 업로드한 이미지가 있을 경우
+		// - 있을 경우 : 경로 조합 (클라이언트 접근 경로(WebPath) + 리네임파일명)
+		if( !profileImg.isEmpty() ) {
+			// updatePath 경로 조합
+			
+			// 1. 파일명 변경
+			rename = Utility.fileRename(profileImg.getOriginalFilename());
+			
+			// 2. /myPage/profile/변경된파일명
+			updatePath = profileWebPath + rename;
+		}
+		
+		// 수정된 프로필 이미지 경로 + 회원 번호를 저장할 DTO 객체
+		Member mem = Member.builder()
+					.memberNo(loginMember.getMemberNo())
+					.profileImg(updatePath)
+					.build();
+		
+		// UPDATE 수행
+		int result = mapper.profile(mem);
+		
+		if(result > 0) { // DB에서 수정 성공
+			
+			// 프로필 이미지를 없앤 경우(NULL로 수정한 경우)를 제외
+			// -> 업로드한 이미지가 있을 경우
+			if( !profileImg.isEmpty() ) {
+				// 파일을 서버 지정된 폴더에 저장
+				profileImg.transferTo(new File(profileFolderPath + rename));
+							// C:/uploadFiles/profile/변경한이름
+			}
+
+			// 세션 회원 정보에서 프로필 이미지 경로를
+			// 업데이트한 경로로 변경
+			loginMember.setProfileImg(updatePath);
+			
+		}
+		
+		
+		return result;
 	}
 	
 	

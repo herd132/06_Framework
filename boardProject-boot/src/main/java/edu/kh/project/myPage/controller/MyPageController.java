@@ -1,5 +1,6 @@
 package edu.kh.project.myPage.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.member.model.dto.Member;
+import edu.kh.project.myPage.model.dto.UploadFile;
 import edu.kh.project.myPage.model.service.MyPageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -99,13 +101,6 @@ public class MyPageController {
 	public String fileTest() {
 		return "myPage/myPage-fileTest";
 	}
-	
-	//파일 목록 조회 화면 이동
-	@GetMapping("fileList") //   /myPage/fileList  GET 방식 요청
-	public String fileList() {
-		return "myPage/myPage-fileList";
-	}
-	
 	
 
 	/**회원 정보 수정
@@ -314,6 +309,93 @@ public class MyPageController {
 		
 		return "redirect:/myPage/fileTest"; //   /myPage/fileTest GET 방식 재요청
 	}
+
 	
 	
+	
+		//파일 목록 조회 화면 이동
+		/** 파일 목록 조회하여 응답화면으로 이동
+		 * @param model : 값 전달용 객체 (기본 request scope
+		 * @param loginMember : 현재 로그인한 회원의 정보
+		 * @return
+		 */
+		@GetMapping("fileList") //   /myPage/fileList  GET 방식 요청
+		public String fileList(Model model,
+								@SessionAttribute("loginMember") Member loginMember ) {
+			
+			// 파일 목록 조회 서비스 호출(현재 로그인한 회원이 올린 이미지만)
+			int memberNo = loginMember.getMemberNo();
+			List<UploadFile> list = service.fileList(memberNo);
+			
+			// model 에 list 담아서 forward
+			model.addAttribute("list", list);
+			
+			// templates/myPage/myPage-fileList.html
+			return "myPage/myPage-fileList";
+		}
+
+		
+		@PostMapping("file/test3")
+		public String fileUpload3( @RequestParam("aaa") List<MultipartFile> aaaList,
+									@RequestParam("bbb") List<MultipartFile> bbbList,
+									@SessionAttribute("loginMember") Member loginMember,
+									RedirectAttributes ra ) throws Exception {
+			
+			// aaa 파일 미제출 시
+			// -> 0번, 1번 인덱스 파일이 모두 비어있음
+			
+			// bbb(multiple)파일 미제출 시
+			// -> 0번 인덱스 파일이 비어있음
+			
+			//log.debug("aaaList : " + aaaList);
+			//log.debug("bbbList : " + bbbList);
+			
+			// 여러 파일 업로드 서비스 호출
+			int memberNo = loginMember.getMemberNo();
+			
+			int result = service.fileUpload3(aaaList, bbbList, memberNo);
+			// result == 업로드된 파일 개수
+		
+			String message = null;
+			
+			if(result == 0) {
+				message = "업로드된 파일이 없습니다";
+				
+			} else {
+				message = result + "개의 파일이 업로드 되었습니다";
+				
+			}
+			
+			ra.addFlashAttribute("message", message);
+			
+			return "redirect:/myPage/fileTest";
+		}
+		
+		
+		/** 프로필 이미지 변경
+		 * @param profileImg
+		 * @param loginMember
+		 * @param ra
+		 * @return
+		 */
+		@PostMapping("profile")
+		public String profile( @RequestParam("profileImg") MultipartFile profileImg,
+						       @SessionAttribute("loginMember") Member loginMember,
+								RedirectAttributes ra ) throws Exception {
+			
+			// 서비스 호출
+			int result = service.profile(profileImg, loginMember);
+			
+			String message = null;
+			
+			if(result > 0) message = "변경 성공!";
+			else			message = "변경 실패ㅠㅠ";
+			
+			ra.addFlashAttribute("message",message);
+			
+			return "redirect:profile"; // 리다이렉트 - /myPage/profile GET 요청 (상대경로)
+			
+			
+		}
+		
 }
