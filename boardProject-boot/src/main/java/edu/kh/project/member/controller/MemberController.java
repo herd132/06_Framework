@@ -1,5 +1,7 @@
 package edu.kh.project.member.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -194,5 +196,13 @@ public class MemberController {
 		// 성공 -> redirect:/
 		// 실패 -> redirect:signup (상대경로)
 				// 현재 주소 /member/signup (GET 방식 요청)
+	}
+	
+	@ResponseBody
+	@GetMapping("selectList")
+	public List<Member> selectMemberList() {
+		
+		return service.selectMemberList();
+		
 	}
 }

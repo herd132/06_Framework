@@ -91,3 +91,43 @@ if(loginForm != null) {
   });
 
 }
+
+//  메인 페이지 비동기
+
+// 비동기로 할 일 목록을 조회하는 함수
+const selectMemberList = document.querySelector("#selectMemberList");
+const createTd = (text) => {
+	const td = document.createElement("td");
+	td.innerText = text;
+	return td; // <td>1</td> // <td>user01@kh.or.kr</td> // <td>유저일</td> // <td>N</td>
+}
+
+selectMemberList.addEventListener("click", () => {
+	// 1) 비동기로 회원 목록 조회
+	//   (포함될 회원 정보 : 회원번호, 이메일, 닉네임, 탈퇴여부)
+
+	fetch("/member/selectList")
+		.then(response => response.json()) // JSON.parse(response)
+		.then(list => {
+
+			console.log(list);
+
+			memberList.innerHTML = "";
+
+			list.forEach((member, index) => {
+				
+				const keyList = ['memberNo', 'memberEmail', 'memberNickname', 'memberDelFl'];
+
+				const tr = document.createElement("tr");
+
+				keyList.forEach(key => tr.append(createTd(member[key])));
+
+				// tbody 자식으로  tr 추가
+				memberList.append(tr);
+
+          
+
+			});
+		})
+    
+});
