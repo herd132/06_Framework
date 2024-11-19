@@ -201,8 +201,8 @@ const selectTodoList = () => {
     // 첫번째 then 에서 text() / json() 했냐에 따라
     // 단순 텍스트 이거나 JS Object 일수도 있음
 
-    // 만약 text() 사용했다던 문자열
-    // -> JSON.parser() 이용하여 JS Object 타입으로 변환 가능.
+    // 만약 text() 사용했다면 문자열
+    // -> JSON.parse() 이용하여 JS Object 타입으로 변환 가능.
     
     // JSON.parse(JSON데이터) : string -> object
     // - string 형태의 JSON 데이터를 JS Object 타입으로 변환
