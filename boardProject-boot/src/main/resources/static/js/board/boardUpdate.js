@@ -54,7 +54,7 @@ const updatePreview = (file, order) => {
 	// 선택된 이미지 백업
 	lastValidFiles[order] = file;
 
-	// 현재 선택 파일 임지 URL 생성 후 미리보기 img 태그에 대입
+	// 현재 선택 파일 임시 URL 생성 후 미리보기 img 태그에 대입
 	const newImageUrl = URL.createObjectURL(file) // 임시 URL 생성
 	previewList[order].src = newImageUrl; // 미리보기 img 태그에 대입
 	

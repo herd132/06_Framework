@@ -236,4 +236,6 @@ public class BoardController {
 	public int BoardLike(@RequestBody Map<String, Integer> map) {
 		return service.BoardLike(map);
 	}
-}
+	
+	
+	}

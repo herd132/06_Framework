@@ -162,7 +162,7 @@ const selectCommentList = () => {
 
 
 
-//selectCommentList();
+selectCommentList();
 
 // -----------------------------------------------------------------------
 
@@ -327,7 +327,6 @@ const insertChildComment = (parentCommentNo, btn) => {
 
   })
   .catch(err => console.log(err));
-
 
 
 }
