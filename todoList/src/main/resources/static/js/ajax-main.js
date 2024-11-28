@@ -454,7 +454,6 @@ updateCancel.addEventListener("click", () => {
     popupLayer.classList.remove("popup-hidden");
 
 });
-
 // ------------------------------------------------
 
 // 수정 레이어 -> 수정 버튼(#updateBtn) 클릭 시
