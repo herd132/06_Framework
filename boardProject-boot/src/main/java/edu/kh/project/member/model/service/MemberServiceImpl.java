@@ -113,6 +113,7 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.signup(inputMember);
 	}
 
+	@Transactional
 	@Override
 	public List<Member> selectMemberList() {
 		return mapper.selectMemberList();
