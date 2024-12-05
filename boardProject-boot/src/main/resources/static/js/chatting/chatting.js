@@ -363,8 +363,9 @@ if (loginMemberNo != "") {
 
 
 // 채팅 입력
-const send = document.getElementById("send");
 
+
+const send = document.getElementById("send");
 const sendMessage = () => {
 	const inputChatting = document.getElementById("inputChatting");
 
