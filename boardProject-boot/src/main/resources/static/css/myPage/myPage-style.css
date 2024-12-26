@@ -1,228 +1,208 @@
-/* 회원 페이지 전체를 감싸고 있는 요소 */
-.myPage-content{
-  display: flex;
-  width: 1000px;
-  min-height: 700px;
-  margin: 50px auto;
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* 사이드메뉴 */
-.left-side{
-  width: 25%;
-  border-right: 2px solid #ddd;
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #fff;
+    color: #333;
 }
 
-.list-group{
-  width: 100%;
-  list-style: none;
-  padding-right: 20px;
+/* Header Styles */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.list-group > li{
-  height: 50px;
-  font-size: 18px;
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.list-group > li > a{
-  color:black;
-  text-decoration: none;
-
-  display: flex;
-  height: 100%;
-
-  justify-content: center;
-  align-items: center;
-
-  border-bottom : 2px solid #ddd;
+.menu-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
 }
 
-.list-group > li > a:hover{
-  background-color: #ccc;
+.logo {
+    width: 40px;
+    height: 40px;
 }
 
-/* ********************************* */
-/* 마이페이지 공통 */
-.myPage-main{
-  width: 75%;
-  padding: 0 50px;
+.header-text {
+    font-size: 16px;
+    font-weight: 500;
 }
 
-/* 마이페이지 제목 */
-.myPage-title{
-  margin-bottom: 10px;
-  font-size: 30px;
+.user-button {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
 }
 
-/* 마이페이지 부제 */
-.myPage-subject{
-  display: block;
-  margin-bottom: 30px;
-
-  font-size: 14px;
-  letter-spacing: -1px;
+/* Main Content */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* 마이페이지 행 단위 스타일 지정 */
-.myPage-row{
-  width: 500px;
-  height: 50px;
-  margin-top: 20px;
-
-  display: flex;
-  align-items: center;
-  border-bottom : 2px solid #ddd;
+.page-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
 }
 
-.myPage-row > * {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-/* 행 제목 */
-.myPage-row > label{
-  width: 30%;
-  color: #455ba8;
-}
-
-.myPage-row > span{
-  width: 70%;
-  color: #455ba8;
-}
-
-/* 행 내부 input 태그 */
-.myPage-row > input{
-  width: 100%;
-  height: 100%;
-  border: none;
-  outline: none;
-  font-weight: normal;
-}
-
-/* 제출 버튼 */
-.myPage-submit{
-  width: 100%;
-  padding: 10px;
-  margin: 50px 0;
-  
-  border: none;
-  font-size: 20px;
-  font-weight: bold;
-
-  background-color: #455ba8;
-  color: white;
-  cursor: pointer;
-}
-
-/* form태그 */
-form[name='myPageFrm']{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-/* 내부 input 요소 focus 시 */
-.myPage-row:focus-within{ 
-  border-bottom-color: #455ba8;
+.form {
+    background-color: #f0bb78;
+    margin-top: 20px;
+    width: 100%;
 }
 
 
-/* ******************************************* */
-/* 내 정보 페이지 전용 스타일 */
-
-.info-title{
-  border: none;
+.form-group {
+    display: flex;
+    margin-bottom: 20px;
 }
 
-.info-address{
-  margin: 0;
+.form-group1 {
+    display: flex;
+    margin-bottom: 20px;
 }
 
-.info-address > button{
-  width: 30%;
-  height: 70%;
-
-  font-size: 14px;
-  font-weight: normal;
-
-  background-color: white;
-  border : 1px solid gray;
-  cursor: pointer;
+.form-group1 label {
+    width: 120px;
+    padding-top: 8px;
+    font-size: 14px;
 }
 
-/* *********비밀번호 변경 화면*********** */
-.myPage-row > input[type='password']{
-  width: 70%;
-} 
-
-/* **********회원 탈퇴 약관********** */
-.secession-terms{
-  width: 500px;
-  height: 300px;
-  border: 1px solid black;
-  
-  overflow: auto;
-  /* 내용이 요소를 벗어나는 경우 방향에 맞춰서 자동으로 스크롤 추가 */
-
-  font-family: sans-serif; /* 돋움체 */
-  font-size: 14px;
+.form-group1 input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-/* ************* 프로필 화면 ************* */
-.profile-image-area{
-  width: 150px;
-  height: 150px;
-  border: 3px solid #ccc;
-  border-radius: 50%;
-
-  position: relative;
-
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-content: center;
+.form-group label {
+    width: 120px;
+    padding-top: 8px;
+    font-size: 14px;
 }
 
-#profileImage{
-  height: 100%;
+.form-group input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-/* 삭제버튼 */
-form[name='myPageFrm']{position: relative;}
-
-#deleteImage{
-  position: absolute;
-  top: 0px;
-  right: 240px;
-  cursor: pointer;
+/* Address Group Styles */
+.address-group {
+    align-items: flex-start;
 }
 
-/* 이미지 버튼 영역 */
-.profile-btn-area{
-  width: 230px;
-  margin: 20px 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.address-inputs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.profile-btn-area > *{
-  width: 110px;
-  height: 33px;
-  padding: 5px 10px;
-
-  border: 1px solid black;
-  background-color: white;
-  font-size: 14px;
-  cursor: pointer;
-  text-align: center;
+.address-search {
+    display: flex;
+    gap: 10px;
 }
 
-#imageInput{ display: none;}
+.address-search input {
+    width: 200px;
+}
 
-.profile-btn-area > button{
-  background-color: #455ba8;
-  color : white;
-  margin-left: 2px;
+.search-button {
+    background-color: #695132;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.cancel-button, 
+.submit-button {
+    padding: 10px 40px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: white;
+    border: 1px solid #695132;
+    color: #695132;
+}
+
+.submit-button {
+    background-color: #695132;
+    border: none;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .form-group {
+        flex-direction: column;
+    }
+
+    .form-group1 {
+        flex-direction: column;
+    }
+
+    .form-group label {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .form-group1 label {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .address-search input {
+        width: 100%;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .cancel-button, 
+    .submit-button {
+        width: 100%;
+    }
 }

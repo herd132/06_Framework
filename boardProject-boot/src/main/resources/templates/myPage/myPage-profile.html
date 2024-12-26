@@ -34,7 +34,7 @@
         -->
         <form action="profile" method="POST" name="myPageFrm" id="profile" enctype="multipart/form-data">
           <div class="profile-image-area">
-
+            
             <img th:with="user=#{user.default.image}"
                 th:src="${session.loginMember.profileImg ?: user}"
                 id="profileImg" >
